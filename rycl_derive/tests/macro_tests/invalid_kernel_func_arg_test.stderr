@@ -1,0 +1,45 @@
+error: argument type is not allowed in kernel functions, allowed types are: ["u32", "i32", "f32"] and KernelStruct
+ --> tests/macro_tests/invalid_kernel_func_arg_test.rs:7:40
+  |
+7 | fn test_kernel_func(a: u32, b: i32, t: Test, num_thread_blocks: u32, thread_block_size: u32) {
+  |                                        ^^^^
+
+warning: unused import: `kernel_struct`
+ --> tests/macro_tests/invalid_kernel_func_arg_test.rs:1:19
+  |
+1 | use rycl_derive::{kernel_struct, kernel_fn};
+  |                   ^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused variable: `a`
+ --> tests/macro_tests/invalid_kernel_func_arg_test.rs:7:21
+  |
+7 | fn test_kernel_func(a: u32, b: i32, t: Test, num_thread_blocks: u32, thread_block_size: u32) {
+  |                     ^ help: if this is intentional, prefix it with an underscore: `_a`
+  |
+  = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `b`
+ --> tests/macro_tests/invalid_kernel_func_arg_test.rs:7:29
+  |
+7 | fn test_kernel_func(a: u32, b: i32, t: Test, num_thread_blocks: u32, thread_block_size: u32) {
+  |                             ^ help: if this is intentional, prefix it with an underscore: `_b`
+
+warning: unused variable: `t`
+ --> tests/macro_tests/invalid_kernel_func_arg_test.rs:7:37
+  |
+7 | fn test_kernel_func(a: u32, b: i32, t: Test, num_thread_blocks: u32, thread_block_size: u32) {
+  |                                     ^ help: if this is intentional, prefix it with an underscore: `_t`
+
+warning: unused variable: `num_thread_blocks`
+ --> tests/macro_tests/invalid_kernel_func_arg_test.rs:7:46
+  |
+7 | fn test_kernel_func(a: u32, b: i32, t: Test, num_thread_blocks: u32, thread_block_size: u32) {
+  |                                              ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_num_thread_blocks`
+
+warning: unused variable: `thread_block_size`
+ --> tests/macro_tests/invalid_kernel_func_arg_test.rs:7:70
+  |
+7 | fn test_kernel_func(a: u32, b: i32, t: Test, num_thread_blocks: u32, thread_block_size: u32) {
+  |                                                                      ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_thread_block_size`

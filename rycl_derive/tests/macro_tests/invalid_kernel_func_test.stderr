@@ -1,0 +1,33 @@
+error: kernel function must contain arguments: num_thread_blocks: u32 and thread_block_size: u32
+ --> tests/macro_tests/invalid_kernel_func_test.rs:4:1
+  |
+4 | fn test_kernel_func(a: u32, b: i32, thread_block_num: u32) {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `kernel_struct`
+ --> tests/macro_tests/invalid_kernel_func_test.rs:1:19
+  |
+1 | use rycl_derive::{kernel_struct, kernel_fn};
+  |                   ^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused variable: `a`
+ --> tests/macro_tests/invalid_kernel_func_test.rs:4:21
+  |
+4 | fn test_kernel_func(a: u32, b: i32, thread_block_num: u32) {
+  |                     ^ help: if this is intentional, prefix it with an underscore: `_a`
+  |
+  = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `b`
+ --> tests/macro_tests/invalid_kernel_func_test.rs:4:29
+  |
+4 | fn test_kernel_func(a: u32, b: i32, thread_block_num: u32) {
+  |                             ^ help: if this is intentional, prefix it with an underscore: `_b`
+
+warning: unused variable: `thread_block_num`
+ --> tests/macro_tests/invalid_kernel_func_test.rs:4:37
+  |
+4 | fn test_kernel_func(a: u32, b: i32, thread_block_num: u32) {
+  |                                     ^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_thread_block_num`

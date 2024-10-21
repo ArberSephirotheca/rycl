@@ -128,9 +128,14 @@ pub fn kernel_struct(_args: TokenStream, input: TokenStream) -> TokenStream {
         }
     }
 
+    let expanded = quote! {
+        impl DeviceStructMarker for #struct_name {}
+    };
+
     TokenStream::from(quote! {
         #(#errors)*
         #input
+        #expanded
     })
 }
 

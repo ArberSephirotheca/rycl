@@ -1,5 +1,5 @@
 error: Field `d` in struct `Test` is not a primitive type.
- --> tests/macro_tests/invalid_kernel_struct_test.rs:4:12
+ --> tests/macro_tests/invalid_kernel_struct_test.rs:5:12
   |
-4 | pub struct Test {
+5 | pub struct Test {
   |            ^^^^

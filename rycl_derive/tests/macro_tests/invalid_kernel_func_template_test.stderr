@@ -1,0 +1,46 @@
+error[E0277]: the trait bound `Test: DeviceStructMarker` is not satisfied
+  --> tests/macro_tests/invalid_kernel_func_template_test.rs:12:24
+   |
+12 |     test_kernel_func::<Test>(1, 2, Test { a: 3.0 }, 4, 5);
+   |                        ^^^^ the trait `DeviceStructMarker` is not implemented for `Test`
+   |
+note: required by a bound in `test_kernel_func`
+  --> tests/macro_tests/invalid_kernel_func_template_test.rs:6:1
+   |
+6  | #[kernel_fn]
+   | ^^^^^^^^^^^^ required by this bound in `test_kernel_func`
+7  | fn test_kernel_func<T>(a: u32, b: i32, t: T, num_thread_blocks: u32, thread_block_size: u32) {
+   |    ---------------- required by a bound in this function
+   = note: this error originates in the attribute macro `kernel_fn` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `a`
+ --> tests/macro_tests/invalid_kernel_func_template_test.rs:7:24
+  |
+7 | fn test_kernel_func<T>(a: u32, b: i32, t: T, num_thread_blocks: u32, thread_block_size: u32) {
+  |                        ^ help: if this is intentional, prefix it with an underscore: `_a`
+  |
+  = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `b`
+ --> tests/macro_tests/invalid_kernel_func_template_test.rs:7:32
+  |
+7 | fn test_kernel_func<T>(a: u32, b: i32, t: T, num_thread_blocks: u32, thread_block_size: u32) {
+  |                                ^ help: if this is intentional, prefix it with an underscore: `_b`
+
+warning: unused variable: `t`
+ --> tests/macro_tests/invalid_kernel_func_template_test.rs:7:40
+  |
+7 | fn test_kernel_func<T>(a: u32, b: i32, t: T, num_thread_blocks: u32, thread_block_size: u32) {
+  |                                        ^ help: if this is intentional, prefix it with an underscore: `_t`
+
+warning: unused variable: `num_thread_blocks`
+ --> tests/macro_tests/invalid_kernel_func_template_test.rs:7:46
+  |
+7 | fn test_kernel_func<T>(a: u32, b: i32, t: T, num_thread_blocks: u32, thread_block_size: u32) {
+  |                                              ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_num_thread_blocks`
+
+warning: unused variable: `thread_block_size`
+ --> tests/macro_tests/invalid_kernel_func_template_test.rs:7:70
+  |
+7 | fn test_kernel_func<T>(a: u32, b: i32, t: T, num_thread_blocks: u32, thread_block_size: u32) {
+  |                                                                      ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_thread_block_size`

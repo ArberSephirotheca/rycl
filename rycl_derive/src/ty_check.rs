@@ -4,7 +4,6 @@ use syn::Type;
 
 pub(crate) type GenericParamSet = HashSet<String>;
 
-
 pub(crate) static ALLOWED_PRIMITIVE_TYPES: [&str; 3] = ["u32", "i32", "f32"];
 
 pub(crate) fn is_valid_type(ty: &Type, generic_param_set: &GenericParamSet) -> bool {
@@ -13,7 +12,8 @@ pub(crate) fn is_valid_type(ty: &Type, generic_param_set: &GenericParamSet) -> b
             if let Some(segment) = type_path.path.segments.last() {
                 let ident = segment.ident.to_string();
                 // we dont check the generic type here as the kernel function is enforced to have a trait bound of KernelStructMarker for the generic type
-                return ALLOWED_PRIMITIVE_TYPES.contains(&ident.as_str()) || generic_param_set.contains(&ident);
+                return ALLOWED_PRIMITIVE_TYPES.contains(&ident.as_str())
+                    || generic_param_set.contains(&ident);
             }
             false
         }

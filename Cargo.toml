@@ -4,7 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-
+compiler = {path = "./compiler"}
+rycl_derive = {path = "./rycl_derive"}
+shared_type = {path = "./shared_type"}
 
 [workspace]
-members = ["rycl_derive", "shared_type"]
+members = [ "compiler","rycl_derive", "shared_type"]

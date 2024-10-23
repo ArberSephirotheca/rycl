@@ -3,13 +3,15 @@ pub(crate) mod ty_check;
 
 use proc_macro::TokenStream;
 use quote::quote;
+#[allow(unused_imports)]
+use shared_type::{DeviceStructMarker, KernelFn, Primitive};
 use smallvec::SmallVec;
 use syn::{
-    parse_macro_input, parse_quote, visit_mut::VisitMut, Error, Expr, ExprArray, ExprForLoop, Fields, FnArg, GenericParam, ItemFn, ItemStruct, Pat, PatIdent, PatType, TraitBound, Type, TypeParamBound
+    parse_macro_input, parse_quote, visit_mut::VisitMut, Error, Expr, ExprArray, ExprForLoop,
+    Fields, FnArg, GenericParam, ItemFn, ItemStruct, Pat, PatIdent, PatType, TraitBound, Type,
+    TypeParamBound,
 };
 use ty_check::*;
-#[allow(unused_imports)]
-use shared_type::{DeviceStructMarker, Primitive};
 
 /// Marker trait for kernel functions, user should not implement this trait manually
 /// This trait is used to check if the customize type is valid in kernel functions
@@ -39,7 +41,7 @@ pub fn kernel_fn(_args: TokenStream, input: TokenStream) -> TokenStream {
                 generic_params.insert(type_param.ident.to_string());
 
             }
-        } 
+        }
     }
     for arg in &input_fn.sig.inputs {
         if let FnArg::Typed(PatType { pat, ty, .. }) = arg {
@@ -76,6 +78,9 @@ pub fn kernel_fn(_args: TokenStream, input: TokenStream) -> TokenStream {
         errors.push(Error::new_spanned(&input_fn.sig, error_msg).into_compile_error());
     }
 
+    let expanded = quote! {
+        impl KernelFn for #input_fn {}
+    };
     let output = quote! {
         #(#errors)*
         #input_fn
@@ -93,7 +98,7 @@ pub fn kernel_struct(_args: TokenStream, input: TokenStream) -> TokenStream {
     let struct_name = &input.ident;
     let mut generic_params = GenericParamSet::new();
     let mut errors = SmallVec::<[proc_macro2::TokenStream; 4]>::new();
-    
+
     // Collect the generic parameters (if any)
     for param in input.generics.params.iter_mut() {
         if let GenericParam::Type(type_param) = param {
